@@ -1,4 +1,106 @@
+* {box-sizing: border-box}
+
 body{
 	background-color: #ddd;
 	text-align: center;
 }
+
+$border: 1px solid black;
+
+.recipeList {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+
+	.well {
+		width: 90%;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		@media (min-width: 550px){
+			width: 49%;
+		}
+		@media (min-width: 850px){
+			width: 32%;
+		}
+		.ingredients {
+			width: 100%;
+		}
+		.dishName{
+			width: 100%;
+		}
+
+		.btn {
+		margin-top: auto;
+		width: 40%;
+		}
+	}
+
+
+}
+
+
+
+
+.formContainer {
+	p{
+		margin-bottom: 2px;
+	}
+	input {
+		margin-bottom: 10px;
+	}
+	textarea {
+		margin-bottom: 10px;
+	}
+}
+
+
+
+
+// .recipeContainer {
+// 	#addRecipe {
+// 		margin: 5px auto;
+// 	}
+// 	.jumbotron {
+// 		display: flex;
+// 		flex-wrap: wrap;
+// 		justify-content: space-around;
+
+// 		.well {
+// 			width: 70%;
+// 			margin-right: -4px;
+// 			@media (min-width: 800px) {
+// 				width: 33%;
+// 			}	
+// 			.recipe {
+// 				display: none;
+// 				width: 100%;
+// 				display: flex;
+// 				justify-content: space-around;
+
+// 			}
+// 				.btnFlex {
+// 					display: flex;
+// 					flex-flow: row wrap;
+// 					justify-content: flex-start;
+// 					width: auto;
+// 					margin: 5px;
+// 					.btn{
+// 						width: 35%;
+// 						margin: auto;
+// 					}
+// 				}
+// 		}
+// 	}
+// }
+
+// .recipeTable {
+// 	border: $border;
+// 	width: 100%;
+// 	text-align: center;
+// 	th, td {
+// 		border: $border;
+// 		text-align: center;
+// 	}
+// }
