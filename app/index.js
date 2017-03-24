@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM, { react } from 'react-dom';
 import Header from './components/Header'
-import Form from './components/Form'
 
 let RECIPES = [
 		{
@@ -24,6 +23,130 @@ let RECIPES = [
 		},
 
 	];
+
+
+// START OF FORM LAYOUT  ***********************************************************FORM LAYOUT
+
+class Form extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: '',
+			ingredients: '',
+		}
+	}
+
+	onNameChange (e) {
+		this.state.name = e.target.value;
+		this.setState(this.state);
+	}
+	onIngChange (e) {
+		this.state.ingredients = e.target.value;
+		this.setState(this.state);
+	}
+
+
+	onSubmit (e) {
+		e.preventDefault();
+		this.props.onAdd(this.state.name, this.state.ingredients);
+		this.setState({
+			name: '',
+			ingredients: '',
+		})
+		}
+
+	render () {
+	
+		return (
+			<div className='formContainer'>
+				<form onSubmit={this.onSubmit.bind(this)}>
+					<p> Dish </p>
+					<input type='text' value={this.state.name} onChange={this.onNameChange.bind(this)}/>
+					<br />
+					<p> Ingredients </p>
+					<textarea name='ingredients' value={this.state.ingredients} onChange={this.onIngChange.bind(this)}/>
+					<br />
+					<input id='formAdd' type='submit' value='Add' />
+					<input id='formCancel' type='button' value='Cancel' onClick={ () =>{ this.props.closePopUpForm()} } />
+				</form>
+			</div>
+		)
+
+	}
+
+}
+
+Form.propTypes = {
+	onAdd: React.PropTypes.func.isRequired,
+}
+
+// END OF FORM LAYOUT ***********************************************************FORM LAYOUT
+
+// START OF ADD RECIPE  ***********************************************************ADD RECIPE
+
+class FormControl extends React.Component {
+		constructor(props){
+			super(props);
+			this.state = {
+			formDisplay: false,
+			displyForm : {display: 'none'},
+			}
+		this.handleClick = this.handleClick.bind(this);
+		this.closePopUpForm = this.closePopUpForm.bind(this);
+		this.onAdd = this.onAdd.bind(this);
+		}
+
+	handleClick () {
+		if(this.state.formDisplay === false){
+			this.setState({
+				formDisplay: true,
+				displyForm : {display: 'block'},
+			})
+		} else {
+			this.setState({
+				formDisplay: false,
+				displyForm : {display: 'none'},
+			})
+		}
+	}
+
+	closePopUpForm () {
+		if(this.state.formDisplay === true) {
+			this.setState({
+				formDisplay: false,
+				displyForm : {display: 'none'},
+			})
+		}
+	}
+
+	onAdd (delta, chi) {
+		this.state.name = delta;
+		this.state.ingredients = chi;
+		this.props.onAddRecipe(this.state.name, this.state.ingredients);
+		this.closePopUpForm();
+	}
+
+
+
+
+	render(){
+		return(
+			<div>
+				<button className='btn btn-default addRecipe' onClick={this.handleClick} type='button'> Add Recipe</button>
+					<div id="popUpContainer" className="popUp" style={this.state.displyForm}>
+						<div className="popUpContent">
+							<Form closePopUpForm={this.closePopUpForm} onAdd={this.onAdd}/>
+						</div>
+					</div>
+			</div>
+		)
+	}
+
+}
+
+// END OF ADD RECIPE ***********************************************************ADD RECIPE
+
+
 
 
 // START OF RECIPE ITEM ***********************************************************RECIPE-ITEM
@@ -67,6 +190,7 @@ class App extends React.Component {
 			recipes: this.props.initialRecipes,
 		}
 		this.onDisplayChange = this.onDisplayChange.bind(this);
+		this.onAddRecipe = this.onAddRecipe.bind(this);
 	}
 
 	onDisplayChange (index, delta) {
@@ -74,6 +198,18 @@ class App extends React.Component {
 			this.state.recipes[index].display = 'block';
 		} else { this.state.recipes[index].display = 'none'}
 		this.setState(this.state)
+	}
+
+	onAddRecipe (name, ing) {
+		let ingred = ing.split(', ');
+		this.state.recipes.push({
+			name: name,
+			ingredients: ingred,
+			shown: false,
+			display : 'none',
+		})
+		this.setState(this.state);
+
 	}
 	
 
@@ -84,6 +220,7 @@ class App extends React.Component {
 				<Header />
 				<div className='recipeContainer' >
 					<h3> Recipe List </h3>
+					<FormControl onAddRecipe={this.onAddRecipe}/>
 					<div className="recipeList">
 						{this.state.recipes.map((recipe, index) =>{ 
 							return (<RecipeItem 
