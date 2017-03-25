@@ -53,11 +53,13 @@ body {
     .recipeList .well .ingredients {
       width: 100%;
       color: black;
-      font-size: 2em; }
+      font-size: 1.3em; }
     .recipeList .well .dishName {
       width: 100%;
       color: white;
       font-size: 3em; }
+    .recipeList .well .instructions {
+      width: 100%; }
     .recipeList .well .btn {
       margin-top: auto;
       width: 30%; }
@@ -86,6 +88,8 @@ body {
     padding: 20px;
     border: 1px solid #3c2e27;
     width: 50%; }
+  .popUp textarea {
+    width: 90%; }
 
 .addRecipe {
   margin-bottom: 25px;

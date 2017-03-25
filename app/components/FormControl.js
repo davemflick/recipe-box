@@ -39,10 +39,11 @@ export default class FormControl extends React.Component {
 		}
 	}
 
-	onAdd (delta, chi) {
+	onAdd (delta, chi, dog) {
 		this.state.name = delta;
 		this.state.ingredients = chi;
-		this.props.onAddRecipe(this.state.name, this.state.ingredients);
+		this.state.instructions = dog;
+		this.props.onAddRecipe(delta, chi, dog);
 		this.closePopUpForm();
 	}
 

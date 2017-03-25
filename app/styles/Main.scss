@@ -66,20 +66,23 @@ $lightBlue: #0193b7;
 		.ingredients {
 			width: 100%;
 			color: black;
-			font-size: 2em;
+			font-size: 1.3em;
 		}
 		.dishName{
 			width: 100%;
 			color: white;
 			font-size: 3em;
 		}
-
+		.instructions {
+			width: 100%;
+		}
 		.btn {
 		margin-top: auto;
 		width: 30%;
 		}
 	}
 }
+
 
 .well:hover {
 	border: 2px solid $lightBlue;
@@ -108,7 +111,11 @@ $lightBlue: #0193b7;
 	    padding: 20px;
 	    border: 1px solid #3c2e27;
 	    width: 50%;
-		}
+	}
+	textarea {
+		width: 90%;
+	}
+
 
 }
 

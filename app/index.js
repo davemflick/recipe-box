@@ -10,19 +10,30 @@ import RecipeItem from './components/RecipeItem';
 let RECIPES = [
 		{
 			name: "Hamburger",
-			ingredients: ["Buns", "Beef", "Ketchup"],
+			ingredients: ["1 sesame seed bun", "1/2 lb ground beek", "1 egg", '3/4 tsp salt', 'sliced avocado', '1 tbsp ketchup'],
+			instructions: ['Preheat grill to 350℉', 
+			 'Form ground beef into a burger and sprinkle with salt',
+			 'Cook burger for 5 minutes on both sides',
+			 'Place on bun with avocado and ketchup',
+			 'Enjoy!'],
 			shown: false,
 			display : 'none',
 		},
 		{
 			name: "Pizza",
 			ingredients: ["Dough", "Sauce", "Cheese", "Pepperoni"],
+			instructions: ["Preheat oven to 425℉",
+			 'Form dough into a circle',
+			 "Spread sauce, cheese, pepperoni evenly across dough.",
+			 "Place in oven 20-25 minutes",
+			 "Cut and Enjoy!"],
 			shown: false,
 			display : 'none',
 		},
 		{
 			name: "Cereal",
 			ingredients: ["Cereal", "Milk"],
+			instructions: ["You should know"],
 			shown: false,
 			display : 'none',
 		},
@@ -49,6 +60,7 @@ class App extends React.Component {
 			displayEdit : {display: 'none'},
 			editName: '',
 			editIng: '',
+			editInstruc: '',
 			editIndex: '',
 		}
 		this.onDisplayChange = this.onDisplayChange.bind(this);
@@ -58,6 +70,7 @@ class App extends React.Component {
 		this.closeEdit = this.closeEdit.bind(this);
 		this.onNameEdit = this.onNameEdit.bind(this);
 		this.onIngEdit = this.onIngEdit.bind(this);
+		this.onInstrucEdit = this.onInstrucEdit.bind(this);
 		this.onSubmitEdit = this.onSubmitEdit.bind(this);
 
 	}
@@ -68,6 +81,7 @@ class App extends React.Component {
 		for(var i in this.state.recipes){
 			if(this.state.recipes[i].name === this.state.editName){
 				this.state.editIng = this.state.recipes[i].ingredients.toString();
+				this.state.editInstruc = this.state.recipes[i].instructions.toString();
 				this.state.editIndex = i;
 			}
 		}
@@ -79,6 +93,7 @@ class App extends React.Component {
 			displayEdit: {display: 'none'},
 			editName: '',
 			editIng: '',
+			editInstruc: '',
 		});
 	}
 
@@ -91,12 +106,17 @@ class App extends React.Component {
 		this.state.editIng = e.target.value;
 		this.setState(this.state);
 	}
+	onInstrucEdit (e) {
+		this.state.editInstruc = e.target.value;
+		this.setState(this.state);
+	}
 
 	onSubmitEdit (e) {
 		e.preventDefault();
 		let editedRecipe = {
 			name: this.state.editName,
 			ingredients: this.state.editIng.split(','),
+			instructions: this.state.editInstruc.split(','),
 			shown: true,
 			display : 'block',
 		}
@@ -105,6 +125,7 @@ class App extends React.Component {
 			recipes: this.state.recipes,
 			editName: '',
 			editIng: '',
+			editInstruc: '',
 		})
 		this.closeEdit();
 		this.submitToLocal();
@@ -149,11 +170,13 @@ class App extends React.Component {
 	}
 
 
-	onAddRecipe (name, ing) {
+	onAddRecipe (name, ing, inst) {
 		let ingred = ing.split(', ');
+		let instruc = inst.split(',');
 		this.state.recipes.push({
 			name: name,
 			ingredients: ingred,
+			instructions: instruc,
 			shown: false,
 			display : 'none',
 		})
@@ -178,6 +201,8 @@ class App extends React.Component {
 						onNameEdit={this.onNameEdit}
 						editIng={this.state.editIng}
 						onIngEdit={this.onIngEdit}
+						editInstruc={this.state.editInstruc}
+						onInstrucEdit={this.onInstrucEdit}
 						/>
 
 					<div className="recipeList">
@@ -189,6 +214,7 @@ class App extends React.Component {
 							onDisplayChange={ (delta) => this.onDisplayChange(delta)}
 							title={recipe.name} 
 							ingr={recipe.ingredients}
+							instructions={recipe.instructions}
 							display={{display:recipe.display}}
 							key={this.state.recipes.indexOf(recipe)}
 							 />

@@ -16,6 +16,8 @@ export default class EditFormControl extends React.Component {
 							onNameEdit={this.props.onNameEdit}
 							editIng={this.props.editIng}
 							onIngEdit={this.props.onIngEdit}
+							editInstruc={this.props.editInstruc}
+							onInstrucEdit={this.props.onInstrucEdit}
 							/>
 						</div>
 					</div>

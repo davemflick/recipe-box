@@ -11,8 +11,11 @@ export default class EditForm extends React.Component {
 					<p> Dish </p>
 					<input type='text' value={this.props.editName} onChange={this.props.onNameEdit}/>
 					<br />
-					<p> Ingredients </p>
+					<p> Ingredients (seperate by ',') </p>
 					<textarea name='ingredients' value={this.props.editIng} onChange={this.props.onIngEdit}/>
+					<br />
+					<p> Instructions (seperate by ',') </p>
+					<textarea name='ingredients' value={this.props.editInstruc} onChange={this.props.onInstrucEdit}/>
 					<br />
 					<input id='addEdit' type='submit' value='Save' />
 					<input id='editCancel' type='button' value='Cancel' onClick={this.props.closeEdit} />
