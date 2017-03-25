@@ -23,7 +23,7 @@ let RECIPES = [
 		},
 
 	];
-console.log(localStorage.length)
+
 if(localStorage.length === 0 ){
 	localStorage['RECIPES'] = JSON.stringify(RECIPES);
 }
