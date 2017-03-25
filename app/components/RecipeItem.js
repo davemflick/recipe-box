@@ -2,92 +2,32 @@ import React from 'react';
 import { react } from 'react-dom';
 
 
-export default class RecipeItem extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-		recipes: [
-			{
-				title: "Hamburger",
-				ingredients: ["Buns", "Beef", "Ketchup"],
-				shown: false,
-				display: { display: 'none' },
-			},
-			{
-				title: "Pizza",
-				ingredients: ["Dough", "Sauce", "Cheese", "Pepperoni"],
-				shown: false,
-				display: { display: 'none' },
-			},
-			{
-				title: "Cereal",
-				ingredients: ["Cereal", "Milk"],
-				shown: false,
-				display: { display: 'none' },
-			},
-
-			],
-
-		}
-
-		this.handleClick = this.handleClick.bind(this)
-		
-	}
-
-	handleClick() {
-		
-	}
-
-	render () {
-		let recipeList = this.state.recipes;
-		return (
-		<div className='recipeList'>
-			{recipeList.map( (recipe) => {
-				return(
-				<div className='well dish' onClick={this.handleClick} key={recipeList.indexOf(recipe)}>
-				 <h3 className='dishName'> {recipe.title}</h3>
-					 <div className='ingredients' style={this.state.display}>
-						{recipe.ingredients.map( (item) => {
-							return <div key={recipe.ingredients.indexOf(item)}> {item} </div>;
-						})}
-					 </div>
-					 <button className='btn btn-primary' style={this.state.display}> Edit </button>
-					 <button className='btn btn-danger' style={this.state.display}> Delete </button>
-				</div>)
-				})}
-		</div>
-		)
-	}
+function insertIngr(ingredients) {
+	return ingredients.map((item, index) => (<div key={'ing ' + (index + 1)}> {item} </div>))
 }
 
+export default class RecipeItem extends React.Component {
 
-// handleClick() {
-// 		if(this.state.shown === false) {
-// 			this.setState({
-// 				shown: true,
-// 				display: { display: '' },
-// 			})
+	render () {
+		return (
+			<div className='well' >
+			 <h3 className='dishName'>{this.props.title}</h3>
+			 <span className='expand' onClick={this.props.onDisplayChange}>⬇︎⬆︎⬇︎⬆︎⬇</span>
+			 	<div className="ingredients" style={this.props.display}>
+			 		{ insertIngr(this.props.ingr) } 
+				</div>
+			 	<button className='btn editBtn' style={this.props.display} onClick={this.props.edit}> Edit </button>
+				<button className='btn deleteBtn' style={this.props.display} onClick={this.props.delete}> Delete </button>
+			</div>
+		)
+	};
 
-// 		} else {
-// 			this.setState({
-// 				shown: false,
-// 				display: { display: 'none' },
-// 			})
-			
-// 		}
-// 	}
+} //End of class RecipeItem
 
-
-
-
-
-
-
-
-
-
-
-
-
+RecipeItem.propTypes = {
+	title: React.PropTypes.string.isRequired,
+	ingr: React.PropTypes.array.isRequired,
+	onDisplayChange: React.PropTypes.func.isRequired,
+};
 
 

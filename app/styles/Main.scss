@@ -1,11 +1,37 @@
 * {box-sizing: border-box}
 
+html {
+	padding-top: 0;
+}
+
 body{
-	background-color: #eee;
+	background-color: #d1c5b7;
+	padding-top: 0;
 	text-align: center;
+	font-family: 'Signika', sans-serif;
 }
 
 $border: 1px solid black;
+$darkBlue: #063e53;
+$lightBlue: #0193b7;
+
+.header {
+	width: 100%;
+	height: 125px;
+	background-image: url('./images/woodBoard.jpeg');
+	>h1 {
+		font-size: 3em;
+		margin-top: 0;
+		padding-top: 20px;
+		color: rgba(249, 249, 236, .75);
+	}
+	>p {
+		color: rgb(41, 41, 41);
+		a{
+			color: #FBF989;
+		}
+	}
+}
 
 .recipeList {
 	display: flex;
@@ -14,6 +40,8 @@ $border: 1px solid black;
 	align-items: flex-start;
 
 	.well {
+		background-color: #b6aea1;
+		border: 2px solid $darkBlue;
 		width: 90%;
 		display: flex;
 		justify-content: space-around;
@@ -25,39 +53,47 @@ $border: 1px solid black;
 			width: 32%;
 		}
 		.expand {
-			border: $border;
-			background-color: white;
+			border-radius: 50%;
+			color: $lightBlue;
 		}
 		.expand:hover,
 		.expand:focus{
-			background-color: blue;
-			color: #23f4a1;
+			color: $darkBlue;
 		    text-decoration: none;
 		    cursor: pointer;
 		}
 
 		.ingredients {
 			width: 100%;
+			color: black;
+			font-size: 2em;
 		}
 		.dishName{
 			width: 100%;
+			color: white;
+			font-size: 3em;
 		}
 
 		.btn {
 		margin-top: auto;
-		width: 40%;
+		width: 30%;
 		}
 	}
-
-
 }
 
+.well:hover {
+	border: 2px solid $lightBlue;
+}
+
+.btn:hover {
+	border: 2px solid #f6f6f6;
+}
 
 //Credit Goes to 'https://www.w3schools.com/howto/howto_css_modals.asp' for Modal pop up
 .popUp {
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 150px;
     left: 0;
     top: 0;
     width: 100%;
@@ -66,12 +102,13 @@ $border: 1px solid black;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
     .popUpContent {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-	}
+	    color: #a05d31;
+	    background-color: #eee4d0;
+	    margin: auto;
+	    padding: 20px;
+	    border: 1px solid #3c2e27;
+	    width: 50%;
+		}
 
 }
 
@@ -79,6 +116,17 @@ $border: 1px solid black;
 
 .addRecipe {
 	margin-bottom: 25px;
+	margin-top: 30px;
+	background-color: #ddd;
+}
+
+.editBtn {
+	background-color: white;
+	color: blue;
+}
+.deleteBtn {
+	background-color: white;
+	color: red;
 }
 
 .formContainer {

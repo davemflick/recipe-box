@@ -9,32 +9,51 @@ export default class FormControl extends React.Component {
 			super(props);
 			this.state = {
 			formDisplay: false,
-			displyForm : {display: 'none'},
+			displayForm : {display: 'none'},
 			}
 		this.handleClick = this.handleClick.bind(this);
+		this.closePopUpForm = this.closePopUpForm.bind(this);
+		this.onAdd = this.onAdd.bind(this);
 		}
 
 	handleClick () {
 		if(this.state.formDisplay === false){
 			this.setState({
 				formDisplay: true,
-				displyForm : {display: 'block'},
+				displayForm : {display: 'block'},
 			})
 		} else {
 			this.setState({
 				formDisplay: false,
-				displyForm : {display: 'none'},
+				displayForm : {display: 'none'},
 			})
 		}
 	}
 
+	closePopUpForm () {
+		if(this.state.formDisplay === true) {
+			this.setState({
+				formDisplay: false,
+				displayForm : {display: 'none'},
+			})
+		}
+	}
+
+	onAdd (delta, chi) {
+		this.state.name = delta;
+		this.state.ingredients = chi;
+		this.props.onAddRecipe(this.state.name, this.state.ingredients);
+		this.closePopUpForm();
+	}
+
+
 	render(){
 		return(
 			<div>
-				<button className='btn btn-default' onClick={this.handleClick} type='button'> Add Recipe</button>
-					<div id="popUpContainer" className="popUp" style={this.state.displyForm}>
+				<button className='btn addRecipe' onClick={this.handleClick} type='button'> Add Recipe</button>
+					<div id="popUpContainer" className="popUp" style={this.state.displayForm}>
 						<div className="popUpContent">
-							<Form />
+							<Form closePopUpForm={this.closePopUpForm} onAdd={this.onAdd}/>
 						</div>
 					</div>
 			</div>
@@ -42,3 +61,4 @@ export default class FormControl extends React.Component {
 	}
 
 }
+

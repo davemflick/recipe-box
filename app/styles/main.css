@@ -1,9 +1,28 @@
 * {
   box-sizing: border-box; }
 
+html {
+  padding-top: 0; }
+
 body {
-  background-color: #eee;
-  text-align: center; }
+  background-color: #d1c5b7;
+  padding-top: 0;
+  text-align: center;
+  font-family: 'Signika', sans-serif; }
+
+.header {
+  width: 100%;
+  height: 125px;
+  background-image: url("./images/woodBoard.jpeg"); }
+  .header > h1 {
+    font-size: 3em;
+    margin-top: 0;
+    padding-top: 20px;
+    color: rgba(249, 249, 236, 0.75); }
+  .header > p {
+    color: #292929; }
+    .header > p a {
+      color: #FBF989; }
 
 .recipeList {
   display: flex;
@@ -11,6 +30,8 @@ body {
   justify-content: space-around;
   align-items: flex-start; }
   .recipeList .well {
+    background-color: #b6aea1;
+    border: 2px solid #063e53;
     width: 90%;
     display: flex;
     justify-content: space-around;
@@ -22,26 +43,35 @@ body {
       .recipeList .well {
         width: 32%; } }
     .recipeList .well .expand {
-      border: 1px solid black;
-      background-color: white; }
+      border-radius: 50%;
+      color: #0193b7; }
     .recipeList .well .expand:hover,
     .recipeList .well .expand:focus {
-      background-color: blue;
-      color: #23f4a1;
+      color: #063e53;
       text-decoration: none;
       cursor: pointer; }
     .recipeList .well .ingredients {
-      width: 100%; }
+      width: 100%;
+      color: black;
+      font-size: 2em; }
     .recipeList .well .dishName {
-      width: 100%; }
+      width: 100%;
+      color: white;
+      font-size: 3em; }
     .recipeList .well .btn {
       margin-top: auto;
-      width: 40%; }
+      width: 30%; }
+
+.well:hover {
+  border: 2px solid #0193b7; }
+
+.btn:hover {
+  border: 2px solid #f6f6f6; }
 
 .popUp {
   position: fixed;
   z-index: 1;
-  padding-top: 100px;
+  padding-top: 150px;
   left: 0;
   top: 0;
   width: 100%;
@@ -50,14 +80,25 @@ body {
   background-color: black;
   background-color: rgba(0, 0, 0, 0.4); }
   .popUp .popUpContent {
-    background-color: #fefefe;
+    color: #a05d31;
+    background-color: #eee4d0;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; }
+    border: 1px solid #3c2e27;
+    width: 50%; }
 
 .addRecipe {
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  margin-top: 30px;
+  background-color: #ddd; }
+
+.editBtn {
+  background-color: white;
+  color: blue; }
+
+.deleteBtn {
+  background-color: white;
+  color: red; }
 
 .formContainer p {
   margin-bottom: 2px; }
