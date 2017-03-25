@@ -1,7 +1,7 @@
 * {box-sizing: border-box}
 
 body{
-	background-color: #ddd;
+	background-color: #eee;
 	text-align: center;
 }
 
@@ -11,7 +11,7 @@ $border: 1px solid black;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	align-items: stretch;
+	align-items: flex-start;
 
 	.well {
 		width: 90%;
@@ -24,6 +24,18 @@ $border: 1px solid black;
 		@media (min-width: 850px){
 			width: 32%;
 		}
+		.expand {
+			border: $border;
+			background-color: white;
+		}
+		.expand:hover,
+		.expand:focus{
+			background-color: blue;
+			color: #23f4a1;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+
 		.ingredients {
 			width: 100%;
 		}
@@ -40,6 +52,8 @@ $border: 1px solid black;
 
 }
 
+
+//Credit Goes to 'https://www.w3schools.com/howto/howto_css_modals.asp' for Modal pop up
 .popUp {
     position: fixed;
     z-index: 1;
@@ -51,31 +65,17 @@ $border: 1px solid black;
     overflow: auto; 
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-}
-
-
-.popUpContent {
+    .popUpContent {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+	}
+
 }
 
-.close {
-    color: #aaaaaa;
-    position: relative;
-    margin-right: 85%;
-    font-size: 20px;
-    font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 .addRecipe {
 	margin-bottom: 25px;

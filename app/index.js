@@ -11,7 +11,7 @@ let RECIPES = [
 		},
 		{
 			name: "Pizza",
-			ingredients: ["Dough", "Sauce", "Cheese", "Pepperoni", 'adfds', 'sdfasd', 'asdf'],
+			ingredients: ["Dough", "Sauce", "Cheese", "Pepperoni"],
 			shown: false,
 			display : 'none',
 		},
@@ -89,7 +89,7 @@ class FormControl extends React.Component {
 			super(props);
 			this.state = {
 			formDisplay: false,
-			displyForm : {display: 'none'},
+			displayForm : {display: 'none'},
 			}
 		this.handleClick = this.handleClick.bind(this);
 		this.closePopUpForm = this.closePopUpForm.bind(this);
@@ -100,12 +100,12 @@ class FormControl extends React.Component {
 		if(this.state.formDisplay === false){
 			this.setState({
 				formDisplay: true,
-				displyForm : {display: 'block'},
+				displayForm : {display: 'block'},
 			})
 		} else {
 			this.setState({
 				formDisplay: false,
-				displyForm : {display: 'none'},
+				displayForm : {display: 'none'},
 			})
 		}
 	}
@@ -114,7 +114,7 @@ class FormControl extends React.Component {
 		if(this.state.formDisplay === true) {
 			this.setState({
 				formDisplay: false,
-				displyForm : {display: 'none'},
+				displayForm : {display: 'none'},
 			})
 		}
 	}
@@ -127,13 +127,11 @@ class FormControl extends React.Component {
 	}
 
 
-
-
 	render(){
 		return(
 			<div>
 				<button className='btn btn-default addRecipe' onClick={this.handleClick} type='button'> Add Recipe</button>
-					<div id="popUpContainer" className="popUp" style={this.state.displyForm}>
+					<div id="popUpContainer" className="popUp" style={this.state.displayForm}>
 						<div className="popUpContent">
 							<Form closePopUpForm={this.closePopUpForm} onAdd={this.onAdd}/>
 						</div>
@@ -145,6 +143,55 @@ class FormControl extends React.Component {
 }
 
 // END OF ADD RECIPE ***********************************************************ADD RECIPE
+
+
+// START OF RECIPE EDIT ***********************************************************RECIPE EDIT
+class EditForm extends React.Component {
+	
+
+	render () {
+		return (
+			<div className='formContainer'>
+				<form onSubmit={this.props.onSubmitEdit}>
+					<p> Dish </p>
+					<input type='text' value={this.props.editName} onChange={this.props.onNameEdit}/>
+					<br />
+					<p> Ingredients </p>
+					<textarea name='ingredients' value={this.props.editIng} onChange={this.props.onIngEdit}/>
+					<br />
+					<input id='addEdit' type='submit' value='Save' />
+					<input id='editCancel' type='button' value='Cancel' onClick={this.props.closeEdit} />
+				</form>
+			</div>
+		)
+
+	}
+
+}
+
+class EditFormControl extends React.Component {
+
+	render(){
+		return(
+			<div>
+					<div id="popUpContainer" className="popUp" style={this.props.displayEditForm}>
+						<div className="popUpContent">
+							<EditForm 
+							closeEdit={this.props.closeEdit}
+							onSubmitEdit={this.props.onSubmitEdit}
+							editName={this.props.editName}
+							onNameEdit={this.props.onNameEdit}
+							editIng={this.props.editIng}
+							onIngEdit={this.props.onIngEdit}
+							/>
+						</div>
+					</div>
+			</div>
+		)
+	}
+
+}
+// END OF RECIPE EDIT ***********************************************************RECIPE EDIT
 
 
 
@@ -159,13 +206,14 @@ class RecipeItem extends React.Component {
 
 	render () {
 		return (
-			<div className='well dish' onClick={() =>{ this.props.onDisplayChange()}}>
+			<div className='well dish'>
 			 <h3 className='dishName'>{this.props.title}</h3>
+			 <span className='expand' onClick={this.props.onDisplayChange}>---Show/Hide---</span>
 			 	<div className="ingredients" style={this.props.display}>
 			 		{ insertIngr(this.props.ingr) } 
 				</div>
-			 	<button className='btn btn-primary' style={this.props.display}> Edit </button>
-				<button className='btn btn-danger' style={this.props.display}> Delete </button>
+			 	<button className='btn btn-primary' style={this.props.display} onClick={this.props.edit}> Edit </button>
+				<button className='btn btn-danger' style={this.props.display} onClick={this.props.delete}> Delete </button>
 			</div>
 		)
 	};
@@ -188,16 +236,87 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			recipes: this.props.initialRecipes,
+			editDisplay: false,
+			displayEdit : {display: 'none'},
+			editName: '',
+			editIng: '',
+			editIndex: '',
 		}
 		this.onDisplayChange = this.onDisplayChange.bind(this);
 		this.onAddRecipe = this.onAddRecipe.bind(this);
+		this.deleteRecipe = this.deleteRecipe.bind(this);
+		this.editRecipe = this.editRecipe.bind(this);
+		this.closeEdit = this.closeEdit.bind(this);
+		this.onNameEdit = this.onNameEdit.bind(this);
+		this.onIngEdit = this.onIngEdit.bind(this);
+		this.onSubmitEdit = this.onSubmitEdit.bind(this);
+	}
+//EDITING A RECIPE
+	editRecipe (e) {
+		this.state.displayEdit = {display: 'block'};
+		this.state.editName = e.target.parentNode.firstChild.textContent;
+		for(var i in this.state.recipes){
+			if(this.state.recipes[i].name === this.state.editName){
+				this.state.editIng = this.state.recipes[i].ingredients.toString();
+				this.state.editIndex = i;
+			}
+		}
+		this.setState(this.state);
 	}
 
-	onDisplayChange (index, delta) {
-		if(this.state.recipes[index].display === 'none') {
-			this.state.recipes[index].display = 'block';
-		} else { this.state.recipes[index].display = 'none'}
+	closeEdit () {
+		this.setState({
+			displayEdit: {display: 'none'},
+			editName: '',
+			editIng: '',
+		});
+	}
+
+	onNameEdit (e) {
+		this.state.editName = e.target.value;
+		this.setState(this.state);
+	}
+
+	onIngEdit (e) {
+		this.state.editIng = e.target.value;
+		this.setState(this.state);
+	}
+
+	onSubmitEdit (e) {
+		e.preventDefault();
+		let editedRecipe = {
+			name: this.state.editName,
+			ingredients: this.state.editIng.split(','),
+			shown: true,
+			display : 'block',
+		}
+		this.state.recipes.splice(this.state.editIndex, 1, editedRecipe);
+		this.setState({
+			recipes: this.state.recipes,
+			editName: '',
+			editIng: '',
+		})
+		this.closeEdit();
+	}
+
+	deleteRecipe (e) {
+		let dishName = e.target.parentNode.firstChild.textContent
+		for(var i in this.state.recipes) {
+			let recipe = this.state.recipes[i]
+			recipe.name === dishName ? this.state.recipes.splice(i, 1) : '';
+			this.setState(this.state);
+		}
+	}
+//END EDITING A RECIPE
+	onDisplayChange (delta) {
+		let dishName = delta.target.previousSibling.textContent;
+		let recipeList = this.state.recipes;
+		for (var i in recipeList){
+		if(dishName === recipeList[i].name && recipeList[i].display === 'none') {
+			recipeList[i].display = 'block';
+		} else { recipeList[i].display = 'none'}
 		this.setState(this.state)
+		}
 	}
 
 	onAddRecipe (name, ing) {
@@ -209,7 +328,6 @@ class App extends React.Component {
 			display : 'none',
 		})
 		this.setState(this.state);
-
 	}
 	
 
@@ -221,10 +339,22 @@ class App extends React.Component {
 				<div className='recipeContainer' >
 					<h3> Recipe List </h3>
 					<FormControl onAddRecipe={this.onAddRecipe}/>
+					<EditFormControl 
+						displayEditForm={this.state.displayEdit}
+						onSubmitEdit={this.onSubmitEdit} 
+						closeEdit={this.closeEdit}
+						editName={this.state.editName}
+						onNameEdit={this.onNameEdit}
+						editIng={this.state.editIng}
+						onIngEdit={this.onIngEdit}
+						/>
+
 					<div className="recipeList">
 						{this.state.recipes.map((recipe, index) =>{ 
-							return (<RecipeItem 
-							onDisplayChange={ (delta) => this.onDisplayChange(index, delta)}
+							return (<RecipeItem
+							edit={this.editRecipe}
+							delete ={this.deleteRecipe}
+							onDisplayChange={ (delta) => this.onDisplayChange(delta)}
 							title={recipe.name} 
 							ingr={recipe.ingredients}
 							display={{display:recipe.display}}
@@ -243,6 +373,8 @@ App.PropTypes = {
 	title: React.PropTypes.string,
 	ingr: React.PropTypes.array.isRequired,
 	onDisplayChange: React.PropTypes.func.isRequired,
+	edit: React.PropTypes.func.isRequired,
+	delete: React.PropTypes.func.isRequired,
 	initialRecipes: React.PropTypes.arrayOf(React.PropTypes.shape({
 		name: React.PropTypes.string.isRequired,
 		ingredients: React.PropTypes.array.isRequired,
@@ -256,59 +388,6 @@ App.PropTypes = {
 ReactDOM.render(<App initialRecipes={RECIPES} />, document.getElementById('app'));
 
 
-
-
-// function insertIngr(ingredients) {
-// 	return ingredients.map((item, index) => (<div key={'ing ' + (index + 1)}> {item} </div>))
-// }
-
-// class RecipeItem extends React.Component {
-// 		constructor(props){
-// 		super(props);
-// 		this.state = {
-// 		shown: false,
-// 		display : 'none',
-// 		}
-// 	this.showHideDish = this.showHideDish.bind(this);
-// 	}
-
-// 	showHideDish (e) {
-// 		e.preventDefault;
-// 		let cur = this.state.shown;
-// 		let none = {display: 'none'};
-// 		if(cur === false) {
-// 			this.setState({
-// 				shown: true,
-// 				display: 'block',
-// 			})
-// 		} else {
-// 			this.setState({
-// 				shown: false,
-// 				display: 'none',
-// 			})
-// 		}
-// 	}
-
-// 	render () {
-// 		return (
-// 			<div className='well dish' onClick={this.showHideDish}>
-// 			 <h3 className='dishName'>{this.props.title}</h3>
-// 			 	<div className="ingredients" style={{display: this.state.display}}>
-// 			 		{ insertIngr(this.props.ingr) } 
-// 				</div>
-// 			 	<button className='btn btn-primary' style={{display: this.state.display}}> Edit </button>
-// 				<button className='btn btn-danger' style={{display: this.state.display}}> Delete </button>
-// 			</div>
-// 		)
-// 	};
-
-// } //End of class RecipeItem
-
-// RecipeItem.propTypes = {
-// 	title: React.PropTypes.string.isRequired,
-// 	ingr: React.PropTypes.array.isRequired,
-// 	onChange: React.PropTypes.func.isRequired,
-// };
 
 
 
