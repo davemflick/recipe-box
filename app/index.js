@@ -23,6 +23,15 @@ let RECIPES = [
 		},
 
 	];
+console.log(localStorage.length)
+if(localStorage.length === 0 ){
+	localStorage['RECIPES'] = JSON.stringify(RECIPES);
+}
+
+let STORED_RECIPES = JSON.parse(localStorage['RECIPES']);
+
+
+
 
 
 // START OF FORM LAYOUT  ***********************************************************FORM LAYOUT
@@ -235,7 +244,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recipes: this.props.initialRecipes,
+			recipes: STORED_RECIPES,
 			editDisplay: false,
 			displayEdit : {display: 'none'},
 			editName: '',
@@ -250,6 +259,7 @@ class App extends React.Component {
 		this.onNameEdit = this.onNameEdit.bind(this);
 		this.onIngEdit = this.onIngEdit.bind(this);
 		this.onSubmitEdit = this.onSubmitEdit.bind(this);
+
 	}
 //EDITING A RECIPE
 	editRecipe (e) {
@@ -297,6 +307,20 @@ class App extends React.Component {
 			editIng: '',
 		})
 		this.closeEdit();
+		this.submitToLocal();
+	}
+
+	submitToLocal () {
+		let recipe = this.state.recipes;
+		for(var i in recipe) {
+			if(recipe[i].shown === true && recipe[i].display === 'block'){
+				recipe[i].shown = false;
+				recipe[i].display = 'none';
+			}
+		}
+		localStorage['RECIPES'] = JSON.stringify(this.state.recipes);
+		let STORED_RECIPES = JSON.parse(localStorage['RECIPES']);
+
 	}
 
 	deleteRecipe (e) {
@@ -306,6 +330,8 @@ class App extends React.Component {
 			recipe.name === dishName ? this.state.recipes.splice(i, 1) : '';
 			this.setState(this.state);
 		}
+		localStorage['RECIPES'] = JSON.stringify(this.state.recipes);
+		let STORED_RECIPES = JSON.parse(localStorage['RECIPES']);
 	}
 //END EDITING A RECIPE
 	onDisplayChange (delta) {
@@ -328,6 +354,8 @@ class App extends React.Component {
 			display : 'none',
 		})
 		this.setState(this.state);
+		localStorage['RECIPES'] = JSON.stringify(this.state.recipes);
+		let STORED_RECIPES = JSON.parse(localStorage['RECIPES']);
 	}
 	
 
@@ -385,7 +413,7 @@ App.PropTypes = {
 //END OF App OUTPUT*********************************************************MAIN
 
 
-ReactDOM.render(<App initialRecipes={RECIPES} />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 
 
 
