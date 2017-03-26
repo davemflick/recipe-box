@@ -52,7 +52,9 @@ $lightBlue: #0193b7;
 		@media (min-width: 850px){
 			width: 32%;
 		}
+		
 		.expand {
+			width: 100%;
 			border-radius: 50%;
 			color: $lightBlue;
 		}
@@ -62,22 +64,52 @@ $lightBlue: #0193b7;
 		    text-decoration: none;
 		    cursor: pointer;
 		}
-
-		.ingredients {
+	
+	}
+	.jumbotron {
+		background-color: #b6aea1;
+		border: 2px solid $darkBlue;
+		width: 90%;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		padding-bottom: 0;
+		padding-top: 10px;
+		
+		.expand {
 			width: 100%;
-			color: black;
-			font-size: 1.3em;
+			border-radius: 50%;
+			color: $lightBlue;
+		}
+		.expand:hover,
+		.expand:focus{
+			color: $darkBlue;
+		    text-decoration: none;
+		    cursor: pointer;
 		}
 		.dishName{
 			width: 100%;
 			color: white;
 			font-size: 3em;
 		}
+
+		.ingredients {
+			width: 49%;
+			color: black;
+			font-size: 1.3em;
+			@media (max-width: 500px){
+				width: 100%;
+			}
+		}
 		.instructions {
-			width: 100%;
+			width: 49%;
+			@media (max-width: 500px){
+				width: 100%;
+			}
 		}
 		.btn {
-		margin-top: auto;
+		margin-top: 20px;
+		margin-bottom: 10px;
 		width: 30%;
 		}
 	}
@@ -110,10 +142,23 @@ $lightBlue: #0193b7;
 	    margin: auto;
 	    padding: 20px;
 	    border: 1px solid #3c2e27;
-	    width: 50%;
+	    width: 60%;
+	    @media (max-width: 550px){
+	    	width: 95%;
+	    }
+	     @media (min-width: 551px) and (max-width: 800px){
+	    	width: 75%;
+	    }
 	}
 	textarea {
 		width: 90%;
+		@media (min-width: 1000px){
+			width: 75%;
+		}
+	}
+
+	.instrText {
+		height: 69px;
 	}
 
 
@@ -152,51 +197,3 @@ $lightBlue: #0193b7;
 }
 
 
-
-
-// .recipeContainer {
-// 	#addRecipe {
-// 		margin: 5px auto;
-// 	}
-// 	.jumbotron {
-// 		display: flex;
-// 		flex-wrap: wrap;
-// 		justify-content: space-around;
-
-// 		.well {
-// 			width: 70%;
-// 			margin-right: -4px;
-// 			@media (min-width: 800px) {
-// 				width: 33%;
-// 			}	
-// 			.recipe {
-// 				display: none;
-// 				width: 100%;
-// 				display: flex;
-// 				justify-content: space-around;
-
-// 			}
-// 				.btnFlex {
-// 					display: flex;
-// 					flex-flow: row wrap;
-// 					justify-content: flex-start;
-// 					width: auto;
-// 					margin: 5px;
-// 					.btn{
-// 						width: 35%;
-// 						margin: auto;
-// 					}
-// 				}
-// 		}
-// 	}
-// }
-
-// .recipeTable {
-// 	border: $border;
-// 	width: 100%;
-// 	text-align: center;
-// 	th, td {
-// 		border: $border;
-// 		text-align: center;
-// 	}
-// }

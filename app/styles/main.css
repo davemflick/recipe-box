@@ -43,6 +43,7 @@ body {
       .recipeList .well {
         width: 32%; } }
     .recipeList .well .expand {
+      width: 100%;
       border-radius: 50%;
       color: #0193b7; }
     .recipeList .well .expand:hover,
@@ -50,18 +51,43 @@ body {
       color: #063e53;
       text-decoration: none;
       cursor: pointer; }
-    .recipeList .well .ingredients {
+  .recipeList .jumbotron {
+    background-color: #b6aea1;
+    border: 2px solid #063e53;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-bottom: 0;
+    padding-top: 10px; }
+    .recipeList .jumbotron .expand {
       width: 100%;
-      color: black;
-      font-size: 1.3em; }
-    .recipeList .well .dishName {
+      border-radius: 50%;
+      color: #0193b7; }
+    .recipeList .jumbotron .expand:hover,
+    .recipeList .jumbotron .expand:focus {
+      color: #063e53;
+      text-decoration: none;
+      cursor: pointer; }
+    .recipeList .jumbotron .dishName {
       width: 100%;
       color: white;
       font-size: 3em; }
-    .recipeList .well .instructions {
-      width: 100%; }
-    .recipeList .well .btn {
-      margin-top: auto;
+    .recipeList .jumbotron .ingredients {
+      width: 49%;
+      color: black;
+      font-size: 1.3em; }
+      @media (max-width: 500px) {
+        .recipeList .jumbotron .ingredients {
+          width: 100%; } }
+    .recipeList .jumbotron .instructions {
+      width: 49%; }
+      @media (max-width: 500px) {
+        .recipeList .jumbotron .instructions {
+          width: 100%; } }
+    .recipeList .jumbotron .btn {
+      margin-top: 20px;
+      margin-bottom: 10px;
       width: 30%; }
 
 .well:hover {
@@ -87,9 +113,20 @@ body {
     margin: auto;
     padding: 20px;
     border: 1px solid #3c2e27;
-    width: 50%; }
+    width: 60%; }
+    @media (max-width: 550px) {
+      .popUp .popUpContent {
+        width: 95%; } }
+    @media (min-width: 551px) and (max-width: 800px) {
+      .popUp .popUpContent {
+        width: 75%; } }
   .popUp textarea {
     width: 90%; }
+    @media (min-width: 1000px) {
+      .popUp textarea {
+        width: 75%; } }
+  .popUp .instrText {
+    height: 69px; }
 
 .addRecipe {
   margin-bottom: 25px;

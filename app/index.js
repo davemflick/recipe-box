@@ -157,17 +157,20 @@ class App extends React.Component {
 //END EDITING A RECIPE
 	onDisplayChange (delta) {
 		let dishName = delta.target.previousSibling.textContent;
+		let recipeWell = delta.target.parentNode;
 		let recipeList = this.state.recipes;
 		for (var i in recipeList){
 			if(dishName === recipeList[i].name && recipeList[i].display === 'none') {
 				recipeList[i].display = 'block';
+				recipeWell.className = 'jumbotron';
 			} else if (dishName === recipeList[i].name && recipeList[i].display === 'block'){ 
 				recipeList[i].display = 'none';
+				recipeWell.className = 'well';
 			}
 			this.setState(this.state)
 		}
-		
 	}
+
 
 
 	onAddRecipe (name, ing, inst) {

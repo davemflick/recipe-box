@@ -15,7 +15,7 @@ export default class EditForm extends React.Component {
 					<textarea name='ingredients' value={this.props.editIng} onChange={this.props.onIngEdit}/>
 					<br />
 					<p> Instructions (seperate by ',') </p>
-					<textarea name='ingredients' value={this.props.editInstruc} onChange={this.props.onInstrucEdit}/>
+					<textarea className="instrText" name='ingredients' value={this.props.editInstruc} onChange={this.props.onInstrucEdit}/>
 					<br />
 					<input id='addEdit' type='submit' value='Save' />
 					<input id='editCancel' type='button' value='Cancel' onClick={this.props.closeEdit} />

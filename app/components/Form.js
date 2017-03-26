@@ -47,7 +47,7 @@ export default class Form extends React.Component {
 					<textarea name='ingredients' value={this.state.ingredients} onChange={this.onIngChange.bind(this)}/>
 					<br />
 					<p> Instructions <span>(seperate by ",")</span> </p>
-					<textarea name='instructions' value={this.state.instructions} onChange={this.onInstrucChange.bind(this)}/>
+					<textarea className="instrText" name='instructions' value={this.state.instructions} onChange={this.onInstrucChange.bind(this)}/>
 					<br />
 					<input id='formAdd' type='submit' value='Add' />
 					<input id='formCancel' type='button' value='Cancel' onClick={ () =>{ this.props.closePopUpForm()} } />
